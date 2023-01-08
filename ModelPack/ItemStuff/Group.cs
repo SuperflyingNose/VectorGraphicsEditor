@@ -33,6 +33,15 @@ namespace VectorGraphicsEditor.ItemStuff
             }
             return frame;
         }
+        public override Item Copy()
+        {
+            List<Item> CopiedItems = new List<Item>();
+            for (int i = 0; i < items.Count; i++)
+            {
+                CopiedItems.Add(items[i].Copy());
+            }
+            return new Group(CopiedItems);
+        }
         /*public override Frame GetRelativeFrame(Frame frame)
         {
             throw new NotImplementedException();

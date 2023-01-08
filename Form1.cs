@@ -151,5 +151,15 @@ namespace VectorGraphicsEditor
                     break;
             }
         }
+
+        private void RedoButton_Click(object sender, EventArgs e)
+        {
+            controller.eventHandler.Redo();
+        }
+
+        private void UndoButton_Click(object sender, EventArgs e)
+        {
+            controller.eventHandler.Undo();
+        }
     }
 }

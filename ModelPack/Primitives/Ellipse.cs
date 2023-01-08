@@ -33,5 +33,10 @@ namespace VectorGraphicsEditor.ModelPack.Primitives
         {
             drawSystem.DrawEllipse(PropList, Frame);
         }
+
+        public override Item Copy()
+        {
+            return new Ellipse(Frame, PropList);
+        }
     }
 }

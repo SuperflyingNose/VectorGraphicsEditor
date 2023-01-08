@@ -15,6 +15,11 @@ namespace VectorGraphicsEditor.Primitives
         {
         }
 
+        public override Item Copy()
+        {
+            return new Line(Frame, PropList);
+        }
+
         public override VectorGraphicsEditor.Model.Selection CreateSelection()
         {
             

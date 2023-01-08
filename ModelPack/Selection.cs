@@ -343,10 +343,12 @@ namespace VectorGraphicsEditor.Model
         bool TryDragActiveSelection(int x, int y);
         void ReleaseActiveSelection();
         void SkipSelections();//убирает выделение 
-        void DeleteSelections();
+        List<Item> DeleteSelections();
         bool TryGrab(int x, int y, bool adder);
+        void GrabList(List<Item> items);
         bool Group();
         bool UnGroup();
+        List<Item> GetSelected();
         int Count { get; }
     }
     internal class SelController : ISelections
@@ -371,12 +373,15 @@ namespace VectorGraphicsEditor.Model
             selectionStore.SkipActiveSelection();
 
         }
-        public void DeleteSelections()
+        public List<Item> DeleteSelections()
         {
+            List<Item> deletedItems = new List<Item>();
             for (int i = 0; i < selectionStore.Count; i++)
             {
+                deletedItems.Add(selectionStore[i].item);
                 store.Remove(selectionStore[i].item);
             }
+            return deletedItems;
         }
         public bool TryGrab(int x, int y, bool adder)
         {
@@ -388,6 +393,14 @@ namespace VectorGraphicsEditor.Model
                 return true;
             }
             return false;
+        }
+        public void GrabList(List<Item> items) // это просто ужасный метод
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                selectionStore.Add(items[i].CreateSelection());
+                
+            }
         }
 
         public bool Group()
@@ -424,6 +437,15 @@ namespace VectorGraphicsEditor.Model
                 return true;
             }
             return false;
+        }
+        public List<Item> GetSelected()
+        {
+            List<Item> selectedItems = new List<Item>();
+            for (int i = 0; i < selectionStore.Count; i++)
+            {
+                selectedItems.Add(selectionStore[i].item);
+            }
+            return selectedItems;
         }
 
         public bool TryDragActiveSelection(int x, int y)

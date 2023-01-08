@@ -31,5 +31,10 @@ namespace VectorGraphicsEditor.Primitives
         {
             drawSystem.DrawRectangle(PropList, Frame);
         }
+
+        public override Item Copy()
+        {
+            return new Rectangle(Frame, PropList);
+        }
     }
 }

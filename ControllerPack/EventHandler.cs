@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VectorGraphicsEditor.ItemStuff;
 
 namespace VectorGraphicsEditor.Controller
 {
@@ -47,6 +48,34 @@ namespace VectorGraphicsEditor.Controller
         public void UnGroup()
         {
             state?.UnGroup();
+        }
+        public void Undo()
+        {
+            Escape();
+            List<Item> changedItems = model.UndoRedoController.Undo();
+            GrabList(changedItems);
+            model.Repaint();
+        }
+        public void Redo()
+        {
+            Escape();
+            List<Item> changedItems = model.UndoRedoController.Redo();
+            GrabList(changedItems);
+            model.Repaint();
+        }
+        public void GrabList(List<Item> items)
+        {
+            if(items is null || items.Count == 0) { return; }
+            else if (items.Count == 1)
+            {
+                ActivateState(StateType.SingleSelect);
+            }
+            else 
+            {
+                ActivateState(StateType.MultiSelect);
+            }
+            model.selectionController.GrabList(items);
+            
         }
 
         public void ActivateState(StateType stateType)

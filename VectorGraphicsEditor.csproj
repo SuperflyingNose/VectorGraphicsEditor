@@ -51,6 +51,7 @@
     <Compile Include="ControllerPack\IController.cs" />
     <Compile Include="ControllerPack\IEventHandler.cs" />
     <Compile Include="ControllerPack\State.cs" />
+    <Compile Include="ControllerPack\UndoRedo.cs" />
     <Compile Include="ModelPack\DrawSystem.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

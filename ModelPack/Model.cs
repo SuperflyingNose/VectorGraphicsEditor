@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VectorGraphicsEditor.ControllerPack;
 using VectorGraphicsEditor.Primitives;
 
 namespace VectorGraphicsEditor.Model
@@ -13,6 +14,9 @@ namespace VectorGraphicsEditor.Model
         public IGrParams GrParams {get; set;}
         public ItemType CreatingItemType { get; set; } = ItemType.itNone;
         public ISelections selectionController { get; set; }
+
+        public IUndoRedoController UndoRedoController {get; set; }
+
         DrawSystem drawSystem;
         Store store;
         Factory factory;
@@ -26,6 +30,7 @@ namespace VectorGraphicsEditor.Model
             GrParams = new GrParams(factory);
             scene = new Scene(store, drawSystem);
             selectionController = new SelController(scene.selectionStore, store, factory);
+            UndoRedoController = new UndoRedoController(store);
         }
         public bool CreateAndGrabItem(int x, int y)
         {
@@ -45,8 +50,12 @@ namespace VectorGraphicsEditor.Model
             Repaint();
             return item;
         }
+        public ItemStuff.Item GetLastCreatedItem()
+        {
+            return store[store.Count - 1];
+        }
 
-        
+
 
         public void Repaint()
         {

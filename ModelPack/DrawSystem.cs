@@ -34,11 +34,6 @@ namespace VectorGraphicsEditor
         }
         public void DrawRectangle(PropList propList, Frame frame)
         {
-            /*Point start = new Point(frame.x1, frame.y1);
-            Size size = new Size(frame.width, frame.length);
-
-            Rectangle rect = new Rectangle(start, size);*/
-
             Rectangle rect = frame.GetFrame();
 
             Graphics.FillRectangle(Brush, rect);

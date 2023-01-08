@@ -38,6 +38,8 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
+            this.UndoButton = new System.Windows.Forms.Button();
+            this.RedoButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // panel1
@@ -93,7 +95,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(496, 11);
+            this.button4.Location = new System.Drawing.Point(478, 11);
             this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(169, 28);
@@ -104,16 +106,16 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(728, 11);
+            this.textBox1.Location = new System.Drawing.Point(654, 12);
             this.textBox1.MinimumSize = new System.Drawing.Size(4, 28);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(58, 22);
+            this.textBox1.Size = new System.Drawing.Size(58, 28);
             this.textBox1.TabIndex = 5;
             this.textBox1.Text = "1";
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(792, 11);
+            this.button5.Location = new System.Drawing.Point(718, 12);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(159, 28);
             this.button5.TabIndex = 6;
@@ -151,11 +153,33 @@
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
+            // UndoButton
+            // 
+            this.UndoButton.Location = new System.Drawing.Point(993, 12);
+            this.UndoButton.Name = "UndoButton";
+            this.UndoButton.Size = new System.Drawing.Size(28, 28);
+            this.UndoButton.TabIndex = 10;
+            this.UndoButton.Text = "←";
+            this.UndoButton.UseVisualStyleBackColor = true;
+            this.UndoButton.Click += new System.EventHandler(this.UndoButton_Click);
+            // 
+            // RedoButton
+            // 
+            this.RedoButton.Location = new System.Drawing.Point(1027, 12);
+            this.RedoButton.Name = "RedoButton";
+            this.RedoButton.Size = new System.Drawing.Size(28, 28);
+            this.RedoButton.TabIndex = 11;
+            this.RedoButton.Text = "→\t";
+            this.RedoButton.UseVisualStyleBackColor = true;
+            this.RedoButton.Click += new System.EventHandler(this.RedoButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.RedoButton);
+            this.Controls.Add(this.UndoButton);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
@@ -191,6 +215,8 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button UndoButton;
+        private System.Windows.Forms.Button RedoButton;
     }
 }
 

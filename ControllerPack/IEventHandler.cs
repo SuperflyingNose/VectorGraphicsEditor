@@ -17,6 +17,8 @@ namespace VectorGraphicsEditor.Controller
         void CtrlMouseUp(int x, int y);
         void Group();
         void UnGroup();
+        void Undo();
+        void Redo();
         void ActivateState(StateType stateType);
     }
 }

@@ -24,6 +24,7 @@ namespace VectorGraphicsEditor.ItemStuff
                 Frame.Add(frame);
             }
         }
+        abstract public Item Copy();
         abstract public void Draw(DrawSystem drawSystem);
         abstract public VectorGraphicsEditor.Model.Selection CreateSelection();
         public void SetRelativeFrame(Frame frame)
@@ -37,7 +38,6 @@ namespace VectorGraphicsEditor.ItemStuff
         }
         abstract public bool TryGrab(int x, int y);
         
-        /*abstract public Frame GetRelativeFrame(Frame frame);*/
     }
     public class RelativeFrame
     {

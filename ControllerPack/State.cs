@@ -6,6 +6,8 @@ using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.Design;
+using VectorGraphicsEditor.ControllerPack;
+using VectorGraphicsEditor.ItemStuff;
 using VectorGraphicsEditor.Model;
 
 namespace VectorGraphicsEditor.Controller
@@ -51,7 +53,7 @@ namespace VectorGraphicsEditor.Controller
 
         public override void CtrlMouseUp(int x, int y)
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void Delete()
@@ -72,6 +74,9 @@ namespace VectorGraphicsEditor.Controller
         public override void LeftMouseDown(int x, int y)
         {
             ((Model.Model)eventHandler.model).CreateAndGrabItem(x, y);
+            List<Item> items = new List<Item>();
+            items.Add(eventHandler.model.GetLastCreatedItem());
+            eventHandler.model.UndoRedoController.AddAction(ActionType.Create, items);
             eventHandler.ActivateState(StateType.DragState);
             return;
         }
@@ -99,22 +104,22 @@ namespace VectorGraphicsEditor.Controller
 
         public override void CtrlMouseUp(int x, int y)
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void Delete()
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void Escape()
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void Group()
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void LeftMouseDown(int x, int y)
@@ -147,7 +152,7 @@ namespace VectorGraphicsEditor.Controller
 
         public override void UnGroup()
         {
-            throw new NotImplementedException();
+            
         }
     }
     internal class SingleSelect : State
@@ -160,14 +165,16 @@ namespace VectorGraphicsEditor.Controller
 
         public override void CtrlMouseUp(int x, int y)
         {
-            eventHandler.model.selectionController.TryGrab(x, y, true);
-            eventHandler.ActivateState(StateType.MultiSelect);
+            if (eventHandler.model.selectionController.TryGrab(x, y, true))
+            {
+                eventHandler.ActivateState(StateType.MultiSelect);
+            }
             eventHandler.model.Repaint();
         }
 
         public override void Delete()
         {
-            eventHandler.model.selectionController.DeleteSelections();
+            eventHandler.model.UndoRedoController.AddAction(ActionType.Delete,eventHandler.model.selectionController.DeleteSelections());
             Escape();
         }
 
@@ -188,6 +195,8 @@ namespace VectorGraphicsEditor.Controller
             var select = eventHandler.model.selectionController.selectionStore.TryGrab(x, y);
             if(select != null)
             {
+                eventHandler.model.UndoRedoController.AddAction(ActionType.Change, eventHandler.model.selectionController.GetSelected());
+                
                 eventHandler.ActivateState(StateType.DragState);
             }
             else if(eventHandler.model.selectionController.TryGrab(x, y, false))
@@ -214,7 +223,9 @@ namespace VectorGraphicsEditor.Controller
 
         public override void UnGroup()
         {
+            eventHandler.model.UndoRedoController.AddAction(ActionType.Ungroup, eventHandler.model.selectionController.GetSelected());
             eventHandler.model.selectionController.UnGroup();
+            
             eventHandler.ActivateState(StateType.MultiSelect);
             eventHandler.model.Repaint();
         }
@@ -235,7 +246,7 @@ namespace VectorGraphicsEditor.Controller
 
         public override void Delete()
         {
-            eventHandler.model.selectionController.DeleteSelections();
+            eventHandler.model.UndoRedoController.AddAction(ActionType.Delete, eventHandler.model.selectionController.DeleteSelections());
             Escape();
         }
 
@@ -249,6 +260,7 @@ namespace VectorGraphicsEditor.Controller
         public override void Group()
         {
             eventHandler.model.selectionController.Group();
+            eventHandler.model.UndoRedoController.AddAction(ActionType.Group, eventHandler.model.selectionController.GetSelected());
             eventHandler.ActivateState(StateType.SingleSelect);
             eventHandler.model.Repaint();
         }
